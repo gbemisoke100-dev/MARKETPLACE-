@@ -1,0 +1,2 @@
+import MessagesWorkspace from "@/components/messages-workspace";
+export default async function Messages({searchParams}:{searchParams:Promise<{to?:string}>}){const {to}=await searchParams;return <MessagesWorkspace to={to}/>;}
