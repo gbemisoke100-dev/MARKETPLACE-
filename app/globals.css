@@ -176,3 +176,6 @@
 .admin-row>div:first-child{min-width:0}
 .admin-row .admin-actions{justify-content:flex-end}
 @media(max-width:700px){.payout-shell,.admin-shell{padding:40px 20px 75px}.payout-grid{grid-template-columns:1fr}.admin-kpis{grid-template-columns:repeat(2,1fr)}.payout-panel,.admin-panel{padding:21px}.admin-row{display:block}.admin-row .admin-actions{margin-top:14px;justify-content:flex-start}}
+
+.dashboard-nav-link{display:block;text-align:left;color:#d8c69e;padding:14px 12px;font-size:13px;border-top:1px solid #ffffff20;margin-top:8px}
+@media(max-width:680px){.dashboard-nav-link{white-space:nowrap;font-size:12px;padding:11px;border-top:0;margin-top:0}}
