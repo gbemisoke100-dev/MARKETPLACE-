@@ -1,0 +1,1 @@
+import CartWorkspace from "@/components/cart-workspace";export default function Cart(){return <CartWorkspace/>;}
