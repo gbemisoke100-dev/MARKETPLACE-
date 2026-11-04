@@ -15,8 +15,12 @@ export async function POST(request:Request){
   const {data:order}=await admin.from("orders").select("id,total_minor,currency,status").eq("provider_reference",tx.tx_ref).eq("payment_provider","flutterwave").maybeSingle();
   if(!order)return NextResponse.json({error:"Order reference not found."},{status:404});
   if(Math.round(Number(tx.amount)*100)!==Number(order.total_minor)||tx.currency!==order.currency)return NextResponse.json({error:"Payment amount or currency mismatch."},{status:400});
+  const {data:items,error:itemsError}=await admin.from("order_items").select("seller_id,unit_price_minor,quantity").eq("order_id",order.id);
+  if(itemsError)return NextResponse.json({error:"Could not load order sellers."},{status:500});
+  const credits=(items??[]).map(item=>({user_id:item.seller_id,entry_type:"sale_credit",amount_minor:Number(item.unit_price_minor)*Number(item.quantity),currency:order.currency,reference:"sale:"+order.id+":"+item.seller_id,related_order_id:order.id,description:"Confirmed marketplace sale"}));
+  if(credits.length){const {error}=await admin.from("wallet_ledger").upsert(credits,{onConflict:"reference",ignoreDuplicates:true});if(error)return NextResponse.json({error:"Could not record seller earnings."},{status:500});}
   if(order.status==="pending"){const {error}=await admin.from("orders").update({status:"paid"}).eq("id",order.id).eq("status","pending");if(error)return NextResponse.json({error:"Could not update order."},{status:500});}
-  await admin.from("payment_events").insert({provider:"flutterwave",provider_event_id:String(transactionId),event_type:event.event,payload:event,processed_at:new Date().toISOString()});
+  await admin.from("payment_events").upsert({provider:"flutterwave",provider_event_id:String(transactionId),event_type:event.event,payload:event,processed_at:new Date().toISOString()},{onConflict:"provider,provider_event_id",ignoreDuplicates:true});
   return NextResponse.json({received:true});
  }catch{return NextResponse.json({error:"Webhook processing failed."},{status:500});}
 }
