@@ -4,9 +4,9 @@ import { ContactShadows, Environment, Float, Sparkles } from "@react-three/drei"
 import { useRef } from "react";
 import * as THREE from "three";
 function Sculpture(){
- const core=useRef<THREE.Mesh>(null),orbit=useRef<THREE.Group>(null);
- useFrame((state,delta)=>{if(core.current){core.current.rotation.y+=delta*.13;core.current.rotation.x=Math.sin(state.clock.elapsedTime*.24)*.1;}if(orbit.current)orbit.current.rotation.z+=delta*.055;});
- return <group>
+ const core=useRef<THREE.Mesh>(null),orbit=useRef<THREE.Group>(null),stage=useRef<THREE.Group>(null);
+ useFrame((state,delta)=>{if(core.current){core.current.rotation.y+=delta*.19;core.current.rotation.x=Math.sin(state.clock.elapsedTime*.24)*.13;}if(orbit.current)orbit.current.rotation.z+=delta*.085;if(stage.current){stage.current.rotation.y+=(state.pointer.x*.12-stage.current.rotation.y)*.018;stage.current.rotation.x+=(-state.pointer.y*.08-stage.current.rotation.x)*.018;}});
+ return <group ref={stage}>
   <Float speed={.8} rotationIntensity={.12} floatIntensity={.3}>
    <mesh ref={core}><icosahedronGeometry args={[1.02,5]}/><meshPhysicalMaterial color="#d6dfad" roughness={.12} metalness={.22} clearcoat={1} clearcoatRoughness={.04} iridescence={.65} iridescenceIOR={1.8}/></mesh>
    <mesh scale={1.23}><icosahedronGeometry args={[1,3]}/><meshBasicMaterial color="#f4f0df" wireframe transparent opacity={.22}/></mesh>
