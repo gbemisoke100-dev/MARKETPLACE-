@@ -12,7 +12,7 @@ export async function POST(request:Request){
   const url=process.env.NEXT_PUBLIC_SUPABASE_URL,secret=process.env.SUPABASE_SECRET_KEY;
   if(!url||!secret)return NextResponse.json({error:"Secure payout processing is not configured."},{status:503});
   const admin=createAdminClient(url,secret,{auth:{autoRefreshToken:false,persistSession:false}});
-  const {data,error}=await admin.rpc("request_seller_payout",{p_seller_id:user.id,p_gross_amount_minor:gross,p_fee_bps:bps});
+  const {data,error}=await admin.rpc("request_seller_payout",{p_seller_id:user.id,p_gross_amount_minor:gross,p_fee_bps:0});
   if(error)return NextResponse.json({error:error.message},{status:400});
   return NextResponse.json({success:true,payoutId:data});
  }catch(error){return NextResponse.json({error:error instanceof Error?error.message:"Could not request payout."},{status:500});}
