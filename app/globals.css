@@ -247,3 +247,44 @@ html[data-theme="light"] .dashboard-stats article,html[data-theme="light"] .dash
 html[data-theme="light"] .dashboard-intro,html[data-theme="light"] .dashboard-welcome p{color:#66695f}
 @media(max-width:680px){.theme-control{right:14px;bottom:14px;padding:11px 13px;font-size:12px}.theme-control-icon{font-size:16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Editorial scale and tactile motion refinements */
+.main-nav{font-size:14px;gap:32px}
+.header-actions{font-size:13px;gap:23px}
+.button{font-size:13px;padding:16px 22px}
+.announcement{font-size:11px;letter-spacing:.045em}
+.eyebrow,.section-kicker{font-size:11px}
+.hero-description{font-size:16px;line-height:1.8;max-width:490px}
+.hero-search input{font-size:14px}
+.hero-search button{font-size:13px;padding:0 18px}
+.text-link,.round-link{font-size:13px}
+.hero-caption{font-size:11px}
+.hero-bottomline{font-size:9px}
+.intro-strip p{font-size:21px}
+.intro-strip div{font-size:9px}
+.product-meta{font-size:10px}
+.product-card h3{font-size:22px}
+.product-card>strong{font-size:14px}
+.seller-name{font-size:12px}
+.empty-editorial>div>span,.empty-job-state>span{font-size:10px}
+.empty-editorial h3{font-size:32px}
+.empty-editorial p,.empty-job-state p{font-size:14px;line-height:1.8}
+.section-heading p{font-size:15px;line-height:1.8}
+.job-info>span,.job-info p,.job-rate a{font-size:12px}
+.job-info h3{font-size:24px}
+.job-rate strong{font-size:16px}
+.talent-card h3{font-size:22px}
+.talent-card p,.talent-card-foot{font-size:13px}
+.footer-links a,.footer p{font-size:12px}
+.site-header{min-height:86px}
+.product-card{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.product-card:hover{transform:translateY(-7px)}
+.product-image-wrap{border-radius:3px;transform:translateZ(0)}
+.talent-card{transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.talent-card:hover{transform:translateY(-6px) rotateX(1deg);border-color:#879273;box-shadow:0 22px 48px #0003}
+.job-card{transition:transform .35s,border-color .35s,background .35s}
+.job-card:hover{transform:translateX(5px);border-color:#a9b28b}
+.hero-art{perspective:1200px}
+.hero-canvas{transform-style:preserve-3d;will-change:transform}
+@media(max-width:900px){.main-nav{font-size:12px;gap:18px}.header-actions{font-size:12px;gap:13px}.hero-description{font-size:15px}}
+@media(max-width:680px){.main-nav{display:none}.header-actions{font-size:12px}.announcement{font-size:10px;padding:0 10px;text-align:center}.intro-strip p{font-size:18px}.intro-strip div{font-size:8px;gap:12px}.product-card h3{font-size:19px}.section-heading p{font-size:14px}.empty-editorial p,.empty-job-state p{font-size:13px}}
