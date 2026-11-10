@@ -5,7 +5,7 @@ export const runtime="nodejs";
 export async function POST(request:Request){
  try{
   const userClient=await createUserClient();
-  if(!userClient)return NextResponse.json({error:"Marketplace backend is not configured."},{status:503});
+  if(!userClient)return NextResponse.json({error:"WORKNA backend is not configured."},{status:503});
   const {data:{user}}=await userClient.auth.getUser();
   if(!user)return NextResponse.json({error:"Sign in to continue."},{status:401});
   const {orderId,provider}=await request.json();
@@ -18,7 +18,7 @@ export async function POST(request:Request){
   if(order.status!=="pending"||order.total_minor<=0)return NextResponse.json({error:"This order is not payable."},{status:409});
   if(order.currency!=="NGN")return NextResponse.json({error:"This checkout is currently configured for NGN payments."},{status:400});
   const reference="mkt_"+crypto.randomUUID().replaceAll("-","");
-  const site=process.env.NEXT_PUBLIC_SITE_URL||(process.env.VERCEL_URL? "https://"+process.env.VERCEL_URL:"https://marketplace-ng.vercel.app");
+  const site=process.env.NEXT_PUBLIC_SITE_URL||(process.env.VERCEL_URL? "https://"+process.env.VERCEL_URL:"https://WORKNA-ng.vercel.app");
   let checkoutUrl="";
   if(provider==="paystack"){
    const key=process.env.PAYSTACK_SECRET_KEY;if(!key)return NextResponse.json({error:"Paystack is not configured yet."},{status:503});
