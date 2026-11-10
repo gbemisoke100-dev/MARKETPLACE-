@@ -4,13 +4,13 @@ import {createClient as createUserClient} from "@/lib/supabase/server";
 export const runtime="nodejs";
 export async function POST(request:Request){
  try{
-  const userClient=await createUserClient();if(!userClient)return NextResponse.json({error:"Marketplace backend is unavailable."},{status:503});
+  const userClient=await createUserClient();if(!userClient)return NextResponse.json({error:"WORKNA backend is unavailable."},{status:503});
   const {data:{user}}=await userClient.auth.getUser();if(!user)return NextResponse.json({error:"Sign in first."},{status:401});
   const body=await request.json();const bankCode=String(body.bankCode??"").trim(),accountNumber=String(body.accountNumber??"").trim();
   if(!/^\d{3}$/.test(bankCode)||!/^\d{10}$/.test(accountNumber))return NextResponse.json({error:"Enter a valid 3-digit bank code and 10-digit account number."},{status:400});
   const key=process.env.PAYSTACK_SECRET_KEY,url=process.env.NEXT_PUBLIC_SUPABASE_URL,secret=process.env.SUPABASE_SECRET_KEY;
   if(!key||!url||!secret)return NextResponse.json({error:"Paystack payouts are not configured. Add the server keys in Vercel."},{status:503});
-  const response=await fetch("https://api.paystack.co/transferrecipient",{method:"POST",headers:{Authorization:"Bearer "+key,"Content-Type":"application/json"},body:JSON.stringify({type:"nuban",name:String(body.accountName??user.email??"Marketplace seller").slice(0,100),account_number:accountNumber,bank_code:bankCode,currency:"NGN"}),cache:"no-store"});
+  const response=await fetch("https://api.paystack.co/transferrecipient",{method:"POST",headers:{Authorization:"Bearer "+key,"Content-Type":"application/json"},body:JSON.stringify({type:"nuban",name:String(body.accountName??user.email??"WORKNA seller").slice(0,100),account_number:accountNumber,bank_code:bankCode,currency:"NGN"}),cache:"no-store"});
   const result=await response.json();if(!response.ok||!result.status||!result.data?.recipient_code)return NextResponse.json({error:result.message||"Paystack could not verify this bank account."},{status:502});
   const admin=createAdminClient(url,secret,{auth:{autoRefreshToken:false,persistSession:false}});
   const details=result.data.details??{};
