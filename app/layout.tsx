@@ -1,8 +1,22 @@
-import type {Metadata} from "next";
-import {DM_Sans,Bodoni_Moda} from "next/font/google";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeControl from "@/components/theme-control";
-const bodyFont=DM_Sans({subsets:["latin"],variable:"--font-body",display:"swap"});
-const displayFont=Bodoni_Moda({subsets:["latin"],variable:"--font-display",display:"swap",weight:["400","500","600","700"]});
-export const metadata:Metadata={title:"MARKETPLACE — Work, discover, move forward.",description:"A considered marketplace for exceptional talent and things worth finding.",metadataBase:new URL("https://marketplace.vercel.app"),openGraph:{title:"MARKETPLACE",description:"Independent minds. Remarkable finds. One place.",type:"website"}};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" data-theme="dark"><body className={`${bodyFont.variable} ${displayFont.variable}`}>{children}<ThemeControl/></body></html>;}
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+
+export const metadata: Metadata = {
+  title: "WORKNA — Work, shop and grow.",
+  description: "One trusted home for finding work, hiring talent and discovering products worth keeping.",
+  applicationName: "WORKNA",
+  openGraph: {
+    title: "WORKNA",
+    description: "Work that moves you. Things worth finding.",
+    type: "website"
+  },
+  twitter: { card: "summary_large_image", title: "WORKNA", description: "Work that moves you. Things worth finding." }
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" data-theme="dark"><body className={inter.variable}>{children}<ThemeControl /></body></html>;
+}
