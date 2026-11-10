@@ -1,6 +1,6 @@
-# MARKETPLACE product capability map
+# WORKNA product capability map
 
-This plan is informed by current public product/help documentation for Upwork, Fiverr, Amazon Seller Central, Jumia's marketplace seller workflow, Paystack and Flutterwave. It is a capability map, not a claim that every capability is already implemented.
+This plan is informed by current public product/help documentation for Upwork, Fiverr, Amazon Seller Central, Jumia's WORKNA seller workflow, Paystack and Flutterwave. It is a capability map, not a claim that every capability is already implemented.
 
 ## Product principles
 
@@ -12,14 +12,14 @@ This plan is informed by current public product/help documentation for Upwork, F
 
 ## E-commerce capabilities (Amazon + Jumia patterns)
 
-| Capability | Marketplace status |
+| Capability | WORKNA status |
 | --- | --- |
 | Public product catalogue, categories, search and product detail | Implemented foundation |
 | Seller storefronts, product publishing and stock editing | Implemented foundation |
 | Cart and checkout order creation | Implemented foundation |
 | Seller order/fulfilment workspace | Implemented foundation |
 | NGN checkout through Paystack / Flutterwave adapters | Integration code present; credentials and end-to-end test required |
-| 10% marketplace commission and seller net earnings ledger | Implemented in webhook and ledger layer; test transactions required |
+| 10% WORKNA commission and seller net earnings ledger | Implemented in webhook and ledger layer; test transactions required |
 | Product variants (size, colour, model), bulk import and SKU/barcodes | Planned |
 | Saved items / wishlists and recently viewed | Planned |
 | Product ratings, verified-purchase reviews, seller ratings and moderation | Planned |
@@ -33,7 +33,7 @@ This plan is informed by current public product/help documentation for Upwork, F
 
 ## Freelance services and project work (Upwork + Fiverr patterns)
 
-| Capability | Marketplace status |
+| Capability | WORKNA status |
 | --- | --- |
 | Freelancer profiles, skills, rates and directory | Implemented foundation |
 | Client job posting and freelancer proposals | Implemented foundation |
@@ -56,7 +56,7 @@ This plan is informed by current public product/help documentation for Upwork, F
 
 ## Trust, operations and platform administration
 
-| Capability | Marketplace status |
+| Capability | WORKNA status |
 | --- | --- |
 | Authenticated accounts and profile roles | Implemented foundation |
 | Row-level security and server-only privileged operations | Implemented foundation |
