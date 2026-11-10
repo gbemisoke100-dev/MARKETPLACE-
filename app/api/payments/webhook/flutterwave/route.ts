@@ -17,7 +17,7 @@ export async function POST(request:Request){
   if(Math.round(Number(tx.amount)*100)!==Number(order.total_minor)||tx.currency!==order.currency)return NextResponse.json({error:"Payment amount or currency mismatch."},{status:400});
   const {data:items,error:itemsError}=await admin.from("order_items").select("seller_id,unit_price_minor,quantity").eq("order_id",order.id);
   if(itemsError)return NextResponse.json({error:"Could not load order sellers."},{status:500});
-  const bps=Number(process.env.MARKETPLACE_COMMISSION_BPS);if(!Number.isInteger(bps)||bps<0||bps>3000)return NextResponse.json({error:"Marketplace commission is not configured."},{status:503});
+  const bps=Number(process.env.WORKNA_COMMISSION_BPS);if(!Number.isInteger(bps)||bps<0||bps>3000)return NextResponse.json({error:"Marketplace commission is not configured."},{status:503});
   const totals=new Map<string,number>();for(const item of items??[])totals.set(item.seller_id,(totals.get(item.seller_id)??0)+Number(item.unit_price_minor)*Number(item.quantity));
   const credits=[...totals].map(([seller_id,gross])=>{const fee=Math.floor(gross*bps/10000);return {user_id:seller_id,entry_type:"sale_credit",amount_minor:gross-fee,currency:order.currency,reference:"sale:"+order.id+":"+seller_id,related_order_id:order.id,description:"Confirmed sale earnings after marketplace commission"};});
   const commissions=[...totals].map(([seller_id,gross])=>{const fee=Math.floor(gross*bps/10000);return {order_id:order.id,seller_id,gross_amount_minor:gross,commission_minor:fee,currency:order.currency,reference:"commission:"+order.id+":"+seller_id};});
