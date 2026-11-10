@@ -4,7 +4,7 @@ import {createClient} from "@/lib/supabase/server";
 import DashboardWorkspace from "@/components/dashboard-workspace";
 export default async function Dashboard(){
  const supabase=await createClient();
- if(!supabase)return <main className="catalog-page"><div className="catalog-content"><h1>Connect your account.</h1><p>Marketplace needs its Supabase connection before your private workspace can load.</p><Link href="/auth" className="button button-dark">Sign in ↗</Link></div></main>;
+ if(!supabase)return <main className="catalog-page"><div className="catalog-content"><h1>Connect your account.</h1><p>WORKNA needs its Supabase connection before your private workspace can load.</p><Link href="/auth" className="button button-dark">Sign in ↗</Link></div></main>;
  const {data:{user}}=await supabase.auth.getUser();
  if(!user)redirect("/auth?mode=login");
  const [{data:profile},{data:store},{count:productCount},{count:jobCount},{count:orderCount},{count:proposalCount}]=await Promise.all([
