@@ -4,11 +4,11 @@ import {createClient as createUserClient} from "@/lib/supabase/server";
 export const runtime="nodejs";
 export async function POST(request:Request){
  try{
-  const userClient=await createUserClient();if(!userClient)return NextResponse.json({error:"Marketplace backend is unavailable."},{status:503});
+  const userClient=await createUserClient();if(!userClient)return NextResponse.json({error:"WORKNA backend is unavailable."},{status:503});
   const {data:{user}}=await userClient.auth.getUser();if(!user)return NextResponse.json({error:"Sign in first."},{status:401});
   const body=await request.json(),gross=Number(body.amountMinor),bps=Number(process.env.MARKETPLACE_COMMISSION_BPS);
   if(!Number.isSafeInteger(gross)||gross<10000)return NextResponse.json({error:"Minimum payout request is NGN 100."},{status:400});
-  if(!Number.isInteger(bps)||bps<0||bps>3000)return NextResponse.json({error:"Payouts are paused until the marketplace commission rate is configured."},{status:503});
+  if(!Number.isInteger(bps)||bps<0||bps>3000)return NextResponse.json({error:"Payouts are paused until the WORKNA commission rate is configured."},{status:503});
   const url=process.env.NEXT_PUBLIC_SUPABASE_URL,secret=process.env.SUPABASE_SECRET_KEY;
   if(!url||!secret)return NextResponse.json({error:"Secure payout processing is not configured."},{status:503});
   const admin=createAdminClient(url,secret,{auth:{autoRefreshToken:false,persistSession:false}});
