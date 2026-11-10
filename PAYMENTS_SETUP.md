@@ -1,4 +1,4 @@
-# Marketplace payments and seller payouts
+# WORKNA payments and seller payouts
 
 ## Before accepting real money
 
@@ -11,27 +11,27 @@ Required server-side variables:
 - `FLUTTERWAVE_SECRET_KEY` — optional alternative checkout provider.
 - `FLUTTERWAVE_SECRET_HASH` — webhook verification hash from Flutterwave.
 - `NEXT_PUBLIC_SITE_URL` — exact deployed origin, including https.
-- `MARKETPLACE_ADMIN_EMAILS` — comma-separated email allowlist for the admin console.
-- `MARKETPLACE_COMMISSION_BPS` — marketplace sales commission in basis points. `1000` means 10%. This is deducted from each seller's confirmed sale credit. Seller withdrawals do not incur a second commission.
+- `WORKNA_ADMIN_EMAILS` — comma-separated email allowlist for the admin console.
+- `WORKNA_COMMISSION_BPS` — marketplace sales commission in basis points. `1000` means 10%. This is deducted from each seller's confirmed sale credit. Seller withdrawals do not incur a second commission.
 
 ## Webhook URLs
 
 Configure the production webhook URLs in the provider dashboards:
 
-- Paystack: `https://marketplace-ng.vercel.app/api/payments/webhook/paystack`
-- Flutterwave: `https://marketplace-ng.vercel.app/api/payments/webhook/flutterwave`
+- Paystack: `https://workna.vercel.app/api/payments/webhook/paystack`
+- Flutterwave: `https://workna.vercel.app/api/payments/webhook/flutterwave`
 
 For test credentials, point the provider's test-mode webhook to the preview deployment:
 
-- Paystack test: `https://marketplace-ng-preview.vercel.app/api/payments/webhook/paystack`
-- Flutterwave test: `https://marketplace-ng-preview.vercel.app/api/payments/webhook/flutterwave`
+- Paystack test: `https://workna-preview.vercel.app/api/payments/webhook/paystack`
+- Flutterwave test: `https://workna-preview.vercel.app/api/payments/webhook/flutterwave`
 
 Paystack webhooks are authenticated with the SHA-512 HMAC signature. Flutterwave uses its configured webhook secret hash and server-side transaction verification.
 
 ## Seller payout flow
 
 1. Seller adds a Nigerian bank account in Dashboard → Payouts & earnings.
-2. Marketplace creates a Paystack transfer recipient. The full account number is sent to Paystack and is not stored in Marketplace; only the recipient code and last four digits are retained.
+2. WORKNA creates a Paystack transfer recipient. The full account number is sent to Paystack and is not stored in WORKNA; only the recipient code and last four digits are retained.
 3. A verified successful payment credits each seller's wallet ledger once, after deducting the 10% marketplace commission. The platform commission is separately recorded in `platform_ledger`, also idempotently.
 4. Seller requests a payout. The database function checks their net earnings balance and reserves the requested amount atomically; no second withdrawal fee is charged.
 5. An allowlisted administrator reviews the request in `/admin`.
@@ -44,7 +44,7 @@ The platform must have Paystack Transfers enabled and sufficient settled balance
 - Complete Paystack business verification and enable Transfers.
 - Add test credentials and verify a complete test purchase and webhook.
 - Verify seller bank-recipient creation and a test transfer.
-- Set the admin email allowlist. The agreed 10% sales commission is configured as `MARKETPLACE_COMMISSION_BPS=1000`.
+- Set the admin email allowlist. The agreed 10% sales commission is configured as `WORKNA_COMMISSION_BPS=1000`.
 - Replace test keys with live keys only after end-to-end test sign-off.
 - Configure both provider webhook URLs and confirm events appear in the admin console.
 - Have legal/accounting review marketplace fees, refunds, chargebacks, seller verification and payout timing before public launch.
