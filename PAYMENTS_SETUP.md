@@ -18,13 +18,13 @@ Required server-side variables:
 
 Configure the production webhook URLs in the provider dashboards:
 
-- Paystack: `https://workna.vercel.app/api/payments/webhook/paystack`
-- Flutterwave: `https://workna.vercel.app/api/payments/webhook/flutterwave`
+- Paystack: `https://<your-workna-domain>/api/payments/webhook/paystack`
+- Flutterwave: `https://<your-workna-domain>/api/payments/webhook/flutterwave`
 
 For test credentials, point the provider's test-mode webhook to the preview deployment:
 
-- Paystack test: `https://workna-preview.vercel.app/api/payments/webhook/paystack`
-- Flutterwave test: `https://workna-preview.vercel.app/api/payments/webhook/flutterwave`
+- Paystack test: `https://<your-workna-preview-domain>/api/payments/webhook/paystack`
+- Flutterwave test: `https://<your-workna-preview-domain>/api/payments/webhook/flutterwave`
 
 Paystack webhooks are authenticated with the SHA-512 HMAC signature. Flutterwave uses its configured webhook secret hash and server-side transaction verification.
 
