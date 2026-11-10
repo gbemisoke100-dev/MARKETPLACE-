@@ -1,1 +1,39 @@
-"use client";import Link from "next/link";import {useState} from "react";import {createClient} from "@/lib/supabase/client";export default function Auth(){const [mode,setMode]=useState("signup"),[role,setRole]=useState("buyer"),[email,setEmail]=useState(""),[password,setPassword]=useState(""),[name,setName]=useState(""),[message,setMessage]=useState(""),[busy,setBusy]=useState(false);async function submit(e:React.FormEvent){e.preventDefault();setBusy(true);setMessage("");try{const supabase=createClient();if(mode==="signup"){const {error}=await supabase.auth.signUp({email,password,options:{data:{full_name:name,role}}});if(error)throw error;setMessage("Account created. Check your inbox to verify your email.");}else{const {error}=await supabase.auth.signInWithPassword({email,password});if(error)throw error;window.location.href="/dashboard";}}catch(err){setMessage(err instanceof Error?err.message:"Authentication could not be completed.");}finally{setBusy(false);}}return <main className="auth-shell"><Link href="/" className="brand"><span className="brand-mark">m.</span>marketplace.</Link><div className="auth-card"><Link href="/" className="back-link">← Back to Marketplace</Link><div className="eyebrow">— YOUR NEXT CHAPTER</div><h1>{mode==="signup"?"Make your move.":"Welcome back."}</h1><p>One account. A world of possibilities.</p><div className="auth-tabs"><button className={mode==="signup"?"selected":""} onClick={()=>setMode("signup")}>Create account</button><button className={mode==="login"?"selected":""} onClick={()=>setMode("login")}>Log in</button></div><form onSubmit={submit}>{mode==="signup"&&<><label>Your name<input required value={name} onChange={e=>setName(e.target.value)} placeholder="Your full name"/></label><label>How will you use Marketplace?<select value={role} onChange={e=>setRole(e.target.value)}><option value="buyer">Shop for products</option><option value="seller">Sell products</option><option value="freelancer">Find freelance work</option><option value="client">Hire professionals</option><option value="both">Multiple roles</option></select></label></>}<label>Email address<input type="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></label><label>Password<input type="password" required minLength={8} value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 8 characters"/></label><button className="button button-dark auth-submit" disabled={busy}>{busy?"Please wait":mode==="signup"?"Create your account":"Log in"} ↗</button></form>{message&&<p className="auth-message" role="status">{message}</p>}<small className="auth-legal">By continuing, you agree to our <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.</small></div></main>}
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+export default function Auth() {
+  const [mode, setMode] = useState("signup"), [role, setRole] = useState("buyer"), [email, setEmail] = useState(""), [password, setPassword] = useState(""), [name, setName] = useState(""), [message, setMessage] = useState(""), [busy, setBusy] = useState(false);
+  async function submit(e: React.FormEvent) {
+    e.preventDefault(); setBusy(true); setMessage("");
+    try {
+      const supabase = createClient();
+      if (mode === "signup") {
+        const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name, role } } });
+        if (error) throw error;
+        setMessage("Your WORKNA account is ready. Check your inbox to verify your email.");
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        window.location.href = "/dashboard";
+      }
+    } catch (err) { setMessage(err instanceof Error ? err.message : "We couldn't complete that request."); }
+    finally { setBusy(false); }
+  }
+  return <main className="auth-shell">
+    <Link href="/" className="brand"><span className="brand-mark">W</span>WORKNA.</Link>
+    <div className="auth-card"><Link href="/" className="back-link">← Back to WORKNA</Link><div className="eyebrow">— YOUR NEXT CHAPTER</div>
+      <h1>{mode === "signup" ? "Make your move." : "Welcome back."}</h1><p>One account. A world of possibilities.</p>
+      <div className="auth-tabs"><button className={mode === "signup" ? "selected" : ""} onClick={() => setMode("signup")}>Create account</button><button className={mode === "login" ? "selected" : ""} onClick={() => setMode("login")}>Log in</button></div>
+      <form onSubmit={submit}>
+        {mode === "signup" && <><label>Your name<input required value={name} onChange={e => setName(e.target.value)} placeholder="Your full name" /></label><label>How will you use WORKNA?<select value={role} onChange={e => setRole(e.target.value)}><option value="buyer">Shop for products</option><option value="seller">Sell products</option><option value="freelancer">Find freelance work</option><option value="client">Hire professionals</option><option value="both">More than one</option></select></label></>}
+        <label>Email address<input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" /></label>
+        <label>Password<input type="password" required minLength={8} value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" /></label>
+        <button className="button button-dark auth-submit" disabled={busy}>{busy ? "Please wait" : mode === "signup" ? "Create your WORKNA account" : "Log in"} ↗</button>
+      </form>
+      {message && <p className="auth-message" role="status">{message}</p>}
+      <small className="auth-legal">By continuing, you agree to our <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Notice</Link>.</small>
+    </div>
+  </main>;
+}
